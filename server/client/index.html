@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket.IO chat</title>
+		<style>
+
+		</style>
+		<link rel="stylesheet" type="text/css" href="style.css" >
+	</head>
+	<body>
+		<h1>Hello there</h1>
+		<button onclick="spin()" >Spin!</button>
+		<ul id="messages"></ul>
+	</body>
+	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+	<script>
+		const socket = io()
+		const messages = document.getElementById('messages')
+
+		const spin =() => {
+
+			socket.emit('spin')
+
+		}
+
+		socket.on('spun', (number) => {
+
+			const item = document.createElement('li');
+    		item.textContent = `Spin #${number}`;
+		    messages.appendChild(item)
+
+		})
+
+	</script>
+</html>
