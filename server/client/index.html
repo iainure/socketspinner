@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Socket.IO chat</title>
-		<style>
-
-		</style>
-		<link rel="stylesheet" type="text/css" href="style.css" >
+		<title>Socket Spinner</title>
+		<link rel="stylesheet" type="text/css" href="css/normalise.css" >
+		<link rel="stylesheet" type="text/css" href="css/style.css" >
 	</head>
-	<body>
-		<h1>Hello there</h1>
+	<body class="status--done">
+		<h1>Socket Spinner</h1>
 		<button onclick="spin()" >Spin!</button>
-		<ul id="messages"></ul>
+		<ul class="spinner">
+			<li class="option" data-id="1">Option 1</li>
+			<li class="option" data-id="2">Option 2</li>
+			<li class="option" data-id="3">Option 3</li>
+			<li class="option" data-id="4">Option 4</li>
+			<li class="option" data-id="5">Option 5</li>
+			<li class="option" data-id="6">Option 6</li>
+			<li class="option" data-id="7">Option 7</li>
+			<li class="option" data-id="8">Option 8</li>
+			<li class="option" data-id="9">Option 9</li>
+			<li class="option" data-id="10">Option 10</li>
+			<li class="option" data-id="11">Option 11</li>
+			<li class="option" data-id="12">Option 12</li>
+		</ul>
 	</body>
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 	<script>
+
 		const socket = io()
-		const messages = document.getElementById('messages')
+		const $options = document.querySelectorAll('.option')
 
-		const spin =() => {
-
-			socket.emit('spin')
-
-		}
+		const spin =() => socket.emit('spin', $options.length)
 
 		socket.on('spun', (number) => {
 
-			const item = document.createElement('li');
-    		item.textContent = `Spin #${number}`;
-		    messages.appendChild(item)
+			const $current = document.querySelector('.option--selected')
+
+			if($current){
+				$current.classList.remove('option--selected')
+			}
+
+			const $toSelect = document.querySelector(`.option[data-id="${number}"]`).classList.add('option--selected')
 
 		})
 

@@ -11,23 +11,16 @@ app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/client/index.html')
 })
 
-let i = 1
-
 io.on('connection', socket => {
 
-	console.log('a user connected')
-
-	socket.on('spin', () => {
-
-		setTimeout(() => {
-			io.emit('spun', i)
-			i++
-		}, 1500)
-
-	})
+	socket.on('spin', max => io.emit('spun', randomSpin(max)))
 
 })
 
-server.listen(8070, () => {
-	console.log('listening on *:8070')
+server.listen(8077, () => {
+	console.log('listening on *:8077')
 })
+
+/* utils */
+
+const randomSpin = max => Math.floor((Math.random() * max) + 1)
