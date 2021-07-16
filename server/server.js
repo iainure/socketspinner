@@ -28,6 +28,6 @@ io.on('connection', socket => {
 
 })
 
-server.listen(3001, () => {
-	console.log('listening on *:3001')
+server.listen(8070, () => {
+	console.log('listening on *:8070')
 })
