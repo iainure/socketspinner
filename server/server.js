@@ -16,8 +16,6 @@ let current
 
 io.on('connection', socket => {
 
-console.log('user connected', current)
-
 	socket.on('spin', max => {
 		
 		current = randomSpin(max)
