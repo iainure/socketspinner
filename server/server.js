@@ -11,9 +11,24 @@ app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/client/index.html')
 })
 
+
+let current
+
 io.on('connection', socket => {
 
-	socket.on('spin', max => io.emit('spun', randomSpin(max)))
+console.log('user connected', current)
+
+	socket.on('spin', max => {
+		
+		current = randomSpin(max)
+		io.emit('spun', current)
+
+	})
+
+	// let people who just connected get the current spin value
+	if(current){
+		socket.emit('startAt', current)
+	}
 
 })
 
